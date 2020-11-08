@@ -25,12 +25,10 @@ def plural_years_rus(year):
         return 'лет'
 
 
-excel_data_wine = pandas.read_excel('wine.xlsx', sheet_name='Лист1')
-print(excel_data_wine.to_dict(orient='record'))
+excel_data_wine = pandas.read_excel('wine.xlsx', sheet_name='Лист1').to_dict(orient='record')
 
-rendered_page = template.render(
-    company_age="Уже {} {} с вами".format(company_age, plural_years_rus(company_age)),
-)
+
+rendered_page = template.render(wines=excel_data_wine)
 
 with open('index.html', 'w', encoding="utf8") as file:
     file.write(rendered_page)
