@@ -25,7 +25,7 @@ def plural_years_rus(year):
         return 'лет'
 
 
-excel_data_wine = pandas.read_excel('wine.xlsx', sheet_name='Лист1').to_dict(orient='record')
+excel_data_wine = pandas.read_excel('wine.xlsx', sheet_name='Лист1').to_dict(orient='records')
 
 
 rendered_page = template.render(wines=excel_data_wine)
