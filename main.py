@@ -2,6 +2,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import datetime
 import pandas
+from pprint import pprint
 
 
 env = Environment(
@@ -28,6 +29,7 @@ def plural_years_rus(year):
 excel_data_wine = pandas.read_excel('wine.xlsx', sheet_name='Лист1').to_dict(orient='records')
 
 excel_wine2_df = pandas.read_excel('wine2.xlsx', sheet_name='Лист1')
+print(excel_wine2_df)
 wine2_category = excel_wine2_df['Категория'].unique().tolist()
 wine2_dict = {}
 for category in wine2_category:
