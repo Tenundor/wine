@@ -36,7 +36,7 @@ foundation_year = 1920
 company_age = datetime.datetime.today().year - foundation_year
 
 wines_description_df = pandas.read_excel(
-    wine_path, sheet_name='Лист1').fillna('blank')
+    wine_path, keep_default_na=False)
 wine_categories = wines_description_df['Категория'].unique().tolist()
 wines_description_by_categories = {}
 for category in wine_categories:
@@ -49,7 +49,6 @@ for category in wine_categories:
 wines_description_by_categories_sorted = OrderedDict(
     sorted(wines_description_by_categories.items())
 )
-
 rendered_page = template.render(wines_by_categories=wines_description_by_categories_sorted,
                                 company_age="Уже {} {} с вами".format(
                                     company_age, change_year_word_endings_rus(company_age)),
