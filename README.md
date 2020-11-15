@@ -17,7 +17,7 @@
 - Скачайте код
 - Запустите сайт командой `python3 main.py [--wine_path WINE_PATH]`, где `WINE_PATH` путь к xlsx таблице, заключённый в двойные кавычки. По умолчанию, программа ищет файл wine.xlsx в каталоге с программой. Пример:
 ```Python
-H:/wine/main.py --wine_path "D:\wine.xlsx"
+>>> Python H:/wine/main.py --wine_path "D:\wine.xlsx"
 ```
 - Перейдите на сайт по адресу [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
