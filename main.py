@@ -4,7 +4,15 @@ import datetime
 import pandas
 from pprint import pprint
 from collections import OrderedDict
+import argparse
 
+
+parser = argparse.ArgumentParser(
+    description='''Программа формирует страницу сайта-магазина по продаже крымских вин
+    на основе шаблона template.html и таблицы со списком вин в формате .xlsx''')
+parser.add_argument(
+    '--wine_path', help='''Путь к файлу cо списком продукции''', default='wine.xlsx')
+wine_path = parser.parse_args().wine_path
 
 env = Environment(
     loader=FileSystemLoader('.'),
@@ -27,7 +35,7 @@ def change_year_word_endings_rus(year):
         return 'лет'
 
 
-excel_wine_df = pandas.read_excel('wine3.xlsx', sheet_name='Лист1').fillna('blank')
+excel_wine_df = pandas.read_excel(wine_path, sheet_name='Лист1').fillna('blank')
 wine_category = excel_wine_df['Категория'].unique().tolist()
 wine_dict = {}
 for category in wine_category:
