@@ -1,9 +1,10 @@
 import argparse
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
+from pprint import pprint
 
 
 def change_year_word_endings_rus(year):
@@ -35,20 +36,17 @@ template = env.get_template('template.html')
 foundation_year = 1920
 company_age = datetime.datetime.today().year - foundation_year
 
-wines_description_df = pandas.read_excel(
-    wine_path, keep_default_na=False)
-wine_categories = wines_description_df['Категория'].unique().tolist()
-wines_description_by_categories = {}
-for category in wine_categories:
-    wines_in_category = wines_description_df[wines_description_df.Категория == category].drop(
-        ['Категория'], axis=1
-    )
-    wines_description_by_categories.update(
-        {category: wines_in_category.to_dict(orient='records')}
-    )
+wines_description = pandas.read_excel(wine_path, keep_default_na=False).to_dict(orient='records')
+wines_description_by_categories = defaultdict(list)
+
+for wine in wines_description:
+    wine_category = wine.pop('Категория')
+    wines_description_by_categories[wine_category].append(wine)
+
 wines_description_by_categories_sorted = OrderedDict(
     sorted(wines_description_by_categories.items())
 )
+
 rendered_page = template.render(wines_by_categories=wines_description_by_categories_sorted,
                                 company_age="Уже {} {} с вами".format(
                                     company_age, change_year_word_endings_rus(company_age)),
