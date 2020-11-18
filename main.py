@@ -4,7 +4,6 @@ import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
-from pprint import pprint
 
 
 def change_year_word_endings_rus(year):
